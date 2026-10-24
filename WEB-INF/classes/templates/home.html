@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اونر للموازين | أفضل متجر للموازين الإلكترونية في مصر</title>
+    <!-- ✅ Meta SEO -->
+    <meta name="description" content="اونر للموازين - بيع جميع أنواع الموازين الإلكترونية والتجارية والذهب والصناعية بأعلى جودة وضمان. شحن لجميع المحافظات.">
+	<meta name="keywords" content="
+	ميزان,
+	موازين,
+	ميزان الكتروني,
+	موازين الكترونية,
+	ميزان حساس,
+	ميزان مللي جرام,
+	ميزان جرام,
+	ميزان كيلو,
+	ميزان دهب,
+	ميزان معمل,
+	ميزان توابل,
+	ميزان مطبخ,
+	ميزان اشخاص,
+	ميزان حمام,
+	ميزان طبي,
+	ميزان ضغط,
+
+	ميزان بسكول,
+	ميزان بسكول كبير,
+	ميزان بسكول صغير,
+	ميزان 30×40,
+	ميزان 40×50,
+	ميزان 60 كيلو,
+	ميزان 100 كيلو,
+	ميزان 150 كيلو,
+	ميزان 200 كيلو,
+	ميزان 300 كيلو,
+	ميزان 400 كيلو,
+	ميزان 500 كيلو,
+	ميزان 1000 كيلو,
+
+	ميزان صناعي,
+	ميزان مصانع,
+	ميزان تعبئة وتغليف,
+	ميزان تغليف,
+	ميزان خزانات,
+	ميزان حيوانات,
+	ميزان خرفان,
+	ميزان عربيات,
+	ميزان سيارات,
+	ميزان تروسيكلات,
+	ميزان طن,
+	ميزان 5 طن,
+	ميزان 20 طن,
+	ميزان 40 طن,
+	ميزان 50 طن,
+
+	ميزان سوبر ماركت,
+	ميزان هايبر ماركت,
+	ميزان كاشير,
+	ميزان بطابعة حرارية,
+	ميزان باركود,
+	ميزان باركود صيني,
+	ميزان باركود اسباني,
+	ميزان باركود الماني,
+
+	ميزان لاسلكي,
+	ميزان بلوتوث,
+	ميزان شنطة,
+	ميزان هوك,
+	ميزان طبلة,
+	ميزان كفة,
+	ميزان رمانة,
+	ميزان عقرب,
+	ميزان مؤشر,
+
+	ميزان ستانلس,
+	ميزان ستانلس بالكامل,
+	ميزان ضد الاملاح,
+	ميزان معزول,
+
+	ميزان مستورد,
+	ميزان صيني,
+	ميزان اسباني,
+	ميزان الماني,
+	افضل ميزان,
+	احدث ميزان,
+	اقوى ميزان,
+
+	الشركة الهندسية للموازين,
+	شركة موازين,
+	بيع الموازين,
+	شراء ميزان,
+	اسعار الموازين,
+	جميع انواع الموازين
+	">
+    <meta name="author" content="اونر للموازين">
+    <!-- ✅ Bootstrap & Font Awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- ✅ Cairo Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+        /* سكشن النص */
+        .promo-text {
+            text-align: center;
+            margin: 50px 0 30px;
+        }
+        .promo-text h1 {
+            font-size: 38px;
+            font-weight: 800;
+            color: #222;
+        }
+        .promo-text h3 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #555;
+            margin-top: 10px;
+        }
+        .carousel-item picture img {
+            max-height: 450px;
+            width: auto;
+            margin: 0 auto;
+        }
+        /* كروت المنتجات */
+        .product-card {
+            border: none;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2px;
+        }
+        .product-card:hover { 
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .product-img-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 15px 15px 0 0;
+        }
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .badge-size {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 10px;
+        }
+        .product-content {
+            padding: 15px 20px 10px 20px;
+            text-align: right;
+        }
+        .product-title { 
+            font-size: 16px; 
+            font-weight: bold; 
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .product-features {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .product-price { 
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .current-price {
+            color: #e53935; 
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .old-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 12px;
+        }
+        /* أزرار المنتجات */
+        .product-actions {
+            padding: 10px 20px 20px 20px;
+            display: flex;
+            gap: 10px;
+        }
+        /* زر أضف للسلة */
+        .btn-add-cart {
+            background: #ff6347;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 14px;
+            flex: 1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-add-cart:hover {
+            background: #e5533d;
+            transform: scale(1.05);
+        }
+        /* زر اشترى الآن - بنفس شكل أضف للسلة */
+        .btn-buy-now {
+            background: #4CAF50;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 14px;
+            flex: 1;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-buy-now:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+		.popular-title {
+		    font-size: 26px;
+		    font-weight: 800;
+		    color: #222;
+		    text-align: right;
+		    margin-top: 40px;
+		}
+
+		.section-divider {
+		    border: none;
+		    height: 3px;
+		    background: linear-gradient(to left, #e53935, #ff7043);
+		    width: 180px;
+		    margin-right: 0;
+		    border-radius: 50px;
+		}
+
+		/* موبايل */
+		@media (max-width: 768px) {
+		    .col-6.col-md-6.col-lg-3.mb-4 {
+		        margin-bottom: 10px !important;
+		    }
+			.row {
+			       margin-left: -5px;
+			       margin-right: -5px;
+			   }
+			   .row > [class*='col-'] {
+			       padding-left: 5px;
+			       padding-right: 5px;
+			   }
+		    .product-img-container { height: 180px; }
+		    .product-content {
+		        padding: 10px 15px 8px 15px;
+		    }
+		    .product-title {
+		        font-size: 14px;
+		        margin-bottom: 5px;
+		    }
+		    .product-features {
+		        font-size: 12px;
+		        margin-bottom: 5px;
+		    }
+		    .current-price {
+		        font-size: 15px;
+		    }
+		    .old-price {
+		        font-size: 11px;
+		    }
+		    .product-actions {
+		        padding: 8px 15px 15px 15px;
+		        gap: 8px;
+		    }
+		    .promo-text h1 { font-size: 26px; }
+		    .promo-text h3 { font-size: 16px; }
+		    .btn-add-cart, .btn-buy-now { 
+		        font-size: 11px; 
+		        padding: 10px 12px; 
+		        border-radius: 50px;
+		        font-weight: 700;
+		    }
+		    .btn-add-cart i, .btn-buy-now i {
+		        font-size: 10px;
+		    }
+		}
+    </style>
+</head>
+<body>
+    <!-- ✅ الهيدر -->
+    <div th:replace="~{fragments/header :: header (categories=${categories}, activeCategoryId=${activeCategoryId})}"></div>
+    <!-- ✅ الكاروسيل -->
+    <div id="offerCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+        <div class="carousel-inner">
+            <div th:each="offer, iterStat : ${offers}"
+                 class="carousel-item"
+                 th:classappend="${iterStat.first} ? ' active' : ''">
+                <picture>
+                    <source media="(max-width: 768px)" th:srcset="@{'/images/' + ${#strings.substringAfter(offer.imageUrlMobile, '/images/')} }">
+                    <img th:src="@{'/images/' + ${#strings.substringAfter(offer.imageUrlDesktop, '/images/')} }"
+                         alt="عرض" class="d-block w-100">
+                </picture>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ النص -->
+    <div class="promo-text">
+        <h1>اونر للموازين</h1>
+        <h3>جودة المنتج · ضمان للعميل</h3>
+    </div>
+	
+	<!-- ✅ قسم الموازين الأكثر طلبًا -->
+	<!-- ✅ العنوان فوق المنتجات -->
+	<div class="popular-header text-right mb-3">
+	  <h2 class="popular-title"> الموازين الأكثر طلبًا🧭</h2>
+	  <div class="section-divider"></div>
+	</div>
+
+
+    <!-- ✅ منتجات -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-6 col-md-6 col-lg-3 mb-4" th:each="entry : ${categoryProducts}">
+                <div class="product-card" th:with="product=${entry.value} ">
+					<a th:href="@{'/product/' + ${product.id}}" style="text-decoration:none; color:inherit;">
+                    <div class="product-img-container">
+                        <div class="badge-size" th:if="${product.stock > 0}">متوفر</div>
+                        <div class="badge-size badge-out" th:if="${product.stock == 0}">نفذ</div>
+                        <img th:src="@{${product.imageUrl1}}" class="product-img" alt="صورة المنتج">
+                    </div>
+                    <div class="product-content">
+                        <div class="product-title" th:text="${product.name}">اسم المنتج</div>
+                        <div class="product-features" th:text="${product.description}">وصف المنتج</div>
+                        <div class="product-price">
+                            <span class="old-price" th:if="${product.originalPrice != null}" th:text="${product.originalPrice}+' ج.م'"></span>
+                            <span class="current-price" th:text="${product.price}+' ج.م'">0 ج.م</span>
+                        </div>
+                    </div>
+					</a>
+                    <div class="product-actions">
+						
+						<form th:action="@{'/cart/buy/' + ${product.id}}" method="post" style="flex: 1;">
+						         <button type="submit" class="btn-buy-now">
+						             اشترِى الآن <i class="fas fa-bolt"></i>
+						          </button>
+						       </form>
+                        <form th:action="@{'/cart/add/' + ${product.id}}" method="post" style="flex: 1;">
+                            <button type="submit" class="btn-add-cart">
+                                أضف للسلة <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+		<!-- ✅ قسم الإعلانات -->
+		<div class="container my-5">
+		    <!-- ✅ لوب على كل الإعلانات -->
+		    <div th:each="ad : ${advertisements}" class="advertisement-item mb-5">
+		        <!-- ✅ العنوان فوق كل صورة -->
+		        <div class="popular-header text-right mb-3">
+		            <h2 class="popular-title" th:text="${ad.title}">عنوان الإعلان</h2>
+		            <div class="section-divider"></div>
+		        </div>
+		        
+		        <!-- ✅ الصورة -->
+		        <div class="text-center">
+		            <picture>
+		                <!-- صورة الموبايل -->
+		                <source media="(max-width: 768px)" th:srcset="@{${ad.imageUrlMobile}}">
+		                <!-- صورة اللابتوب -->
+		                <img th:src="@{${ad.imageUrlDesktop}}" 
+		                     th:alt="${ad.title}"
+		                     class="ad-img img-fluid rounded shadow">
+		            </picture>
+		        </div>
+		    </div>
+		</div>
+
+		<style>
+		    .advertisement-item {
+		        margin-bottom: 50px;
+		    }
+
+		    .ad-img {
+		        max-width: 100%;
+		        width: 100%;
+		        height: auto;
+		        border-radius: 15px;
+		        transition: transform 0.3s ease;
+		        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+		    }
+
+		    .ad-img:hover {
+		        transform: scale(1.02);
+		    }
+
+		    /* تحديد ارتفاع الصور حسب الشاشة */
+		    @media (min-width: 769px) {
+		        .ad-img {
+		            max-height: 500px;
+		            object-fit: cover;
+		        }
+		    }
+
+		    @media (max-width: 768px) {
+		        .advertisement-item {
+		            margin-bottom: 35px;
+		        }
+		        .ad-img {
+		            max-height: 300px;
+		            object-fit: cover;
+		        }
+		    }
+		</style>
+    <!-- ✅ الفوتر -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

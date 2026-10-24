@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>سياسة الشحن والتوصيل | اونر للموازين</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', 'Arial', sans-serif; background-color: #f0f2f5; }
+
+        /* الهيدر */
+        .page-header { 
+            background: linear-gradient(135deg, #343a40, #4caf50); 
+            color: white; padding: 50px 0; 
+            text-align: center; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .page-header h1 { font-weight: 800; font-size: 32px; }
+
+        /* الصندوق */
+        .content-box {
+            background: #fff; border-radius: 15px; padding: 30px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08); margin-top: -20px;
+        }
+        .content-box h3 { font-weight: 700; margin-top: 25px; font-size: 20px; color: #333; }
+        .content-box p, .content-box li { font-size: 16px; color: #555; line-height: 1.8; }
+        .content-box ul { padding-right: 20px; }
+
+        /* الموبايل */
+        @media(max-width: 767px){
+            .page-header h1 { font-size: 24px; }
+            .content-box { padding: 20px; }
+            .content-box h3 { font-size: 18px; }
+            .content-box p, .content-box li { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر العام -->
+    <div th:replace="~{fragments/header :: header (categories=${categories}, activeCategoryId=${activeCategoryId})}"></div>
+
+    <!-- هيدر الصفحة -->
+    <div class="page-header">
+        <div class="container">
+            <h1>سياسة الشحن والتوصيل 🚚</h1>
+        </div>
+    </div>
+
+    <!-- المحتوى -->
+    <div class="container my-5">
+        <div class="content-box text-right">
+
+            <p>حرصًا منا على تقديم تجربة شراء مريحة وسريعة، نوضح لكم سياسة الشحن والتوصيل الخاصة بمنتجاتنا.</p>
+
+            <h3>1️⃣ مدة الشحن والتوصيل ⏳</h3>
+            <p>نعمل على توصيل المنتجات إليكم عبر شركات شحن متخصصة، مع مراعاة اختلاف المدة حسب موقعك الجغرافي:</p>
+            <ul>
+                <li>القاهرة والجيزة: من 2 إلى 3 أيام عمل.</li>
+                <li>محافظات الصعيد: من 3 إلى 5 أيام عمل.</li>
+                <li>باقي المحافظات: من 2 إلى 5 أيام عمل.</li>
+            </ul>
+            <p><strong>ملاحظة:</strong> قد تتأثر مدة التوصيل في بعض الحالات بسبب ظروف خارجة عن إرادتنا (مثل الأعياد أو الطقس السيئ).</p>
+
+            <h3>2️⃣ تكلفة الشحن 💸</h3>
+            <ul>
+                <li>تختلف تكلفة الشحن بناءً على موقعك والوزن الإجمالي للمنتج.</li>
+                <li>سيتم إبلاغك بتكلفة الشحن عند إتمام عملية الطلب.</li>
+            </ul>
+
+            <h3>3️⃣ تتبع الطلب 📦</h3>
+            <ul>
+                <li>بعد إتمام الطلب، ستتلقى رسالة تحتوي على رقم تتبع الشحنة.</li>
+                <li>يمكنك استخدام هذا الرقم لمتابعة حالة طلبك عبر شركة الشحن.</li>
+            </ul>
+
+            <h3>4️⃣ استلام المنتج 🛒</h3>
+            <ul>
+                <li>يرجى التأكد من فحص المنتج جيدًا عند الاستلام للتأكد من سلامته.</li>
+                <li>إذا كان هناك أي مشكلة في المنتج، يمكنك التواصل معنا فورًا عبر قنوات الدعم المتاحة.</li>
+            </ul>
+
+            <h3>5️⃣ للتواصل معنا 📞</h3>
+            <p>
+                رقم الهاتف: 01031317025 <br>
+                رقم الهاتف: 01031317052 <br>
+                البريد الإلكتروني: elhandsyh1@gmail.com
+            </p>
+
+            <p class="mt-4">نحن نسعى دائمًا لتقديم أفضل تجربة شحن وتوصيل لعملائنا الكرام. شكراً لاختيارك <strong>اونر للموازين</strong> 💙</p>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

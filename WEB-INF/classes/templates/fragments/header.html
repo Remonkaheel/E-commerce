@@ -1,0 +1,606 @@
+<!-- fragments/header.html -->
+<div th:fragment="header (categories, activeCategoryId)">
+    <!-- ✅ Favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.jpg">
+
+    <!-- الشريط العلوي -->
+    <div class="top-bar">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <!-- معلومات التواصل (جهة اليمين) -->
+                <div class="col-md-3 d-none d-md-block text-right">
+                    <div class="contact-info">
+                        <span><i class="fas fa-phone-alt"></i> 01031317025</span>
+						<span><i class="fas fa-phone-alt"></i> 01031317052</span>
+
+                    </div>
+                </div>
+                
+                <!-- النص المتحرك (الوسط) -->
+                <div class="col-12 col-md-6">
+                    <div class="marquee-container">
+						    <div class="marquee-content">
+								<span>عروض خاصة على جميع الموازين <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>خصومات تصل إلى 30% <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>اطلب الآن واستلم خلال 48 ساعة <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>مهما كان مجالك هنوفر لك ميزانك <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>جودة المنتج ضمان للعميل <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>أنت الآن في متجر الموازين والمنتجات التجارية والصناعية في مصر <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>كل العروض على طول معانا – كل جديد <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>الحق العرض الآن <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+
+								<!-- كرر النص للتكرار المستمر -->
+								<span>عروض خاصة على جميع الموازين <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>خصومات تصل إلى 30% <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>اطلب الآن واستلم خلال 48 ساعة <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>مهما كان مجالك هنوفر لك ميزانك <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>جودة المنتج ضمان للعميل <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>أنت الآن في متجر الموازين والمنتجات التجارية والصناعية في مصر <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>كل العروض على طول معانا – كل جديد <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								<span>الحق العرض الآن <img src="/logo_11.jpg" class="marquee-logo" alt="Logo"></span>
+								
+								
+		</div>
+						</div>
+
+                    </div>                
+                <!-- روابط التواصل الاجتماعي (جهة اليسار) -->
+                <div class="col-md-3 d-none d-md-block text-left">
+                    <div class="social-media">
+                        <a href="https://www.facebook.com/share/1JCbeiLVg5/" class="text-white mx-2">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/201031317025" class="text-white mx-2">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://t.me/+201031317025" class="text-white mx-2">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الهيدر للابتوب -->
+    <header class="header container-fluid d-none d-lg-flex justify-content-center align-items-center py-3">
+        <!-- اللوجو -->
+        <div class="logo mx-2">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo.jpg}" alt="الهندسية للموازين" class="img-fluid" style="max-height: 60px;">
+            </a>
+        </div>
+
+        <!-- البحث العصري -->
+        <div class="search-wrapper mx-2 position-relative" style="max-width: 600px; width: 100%;">
+            <input type="text" id="searchBox" class="search-input-modern" placeholder="🔍 ما الذي تبحث عنه؟">
+            <ul id="searchResults" class="search-results-modern shadow-lg rounded"></ul>
+        </div>
+
+        <div class="dropdown mx-2" sec:authorize="isAuthenticated()">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="accountDropdown" data-toggle="dropdown">
+                <i class="fas fa-user"></i> حسابي
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#"><i class="fas fa-user"></i> حسابي</a>
+                <a class="dropdown-item" th:href="@{/orders}"><i class="fas fa-shopping-bag"></i> طلباتي</a>
+                <a class="dropdown-item" href="#"><i class="fas fa-map-marker-alt"></i> عناويني</a>
+                <div class="dropdown-divider"></div>
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit" class="dropdown-item">
+                        <i class="fas fa-sign-out-alt"></i> تسجيل خروج
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div sec:authorize="!isAuthenticated()" class="mx-2">
+            <a th:href="@{/login}" class="btn btn-outline-dark">
+                <i class="fas fa-user"></i> تسجيل دخول
+            </a>
+        </div>
+        
+        <a th:href="@{/admin/products}" class="btn btn-outline-dark mx-2" sec:authorize="hasRole('ROLE_ADMIN')">
+            <i class="fas fa-toolbox"></i> لوحة التحكم
+        </a>
+
+        <!-- Cart Button for Desktop -->
+        <div th:replace="~{fragments/cart :: cartSidebar}"></div>
+    </header>
+
+    <!-- القائمة الرئيسية للابتوب -->
+    <nav class="navbar navbar-expand-lg navbar-main d-none d-lg-block">
+        <div class="container">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}" 
+                       th:classappend="${activePage == 'home'} ? 'active-page'">الرئيسية</a>
+                </li>
+                <li class="nav-item" th:each="category : ${categories}" th:if="${categories != null}">
+                    <a class="nav-link"
+                       th:href="@{'/category/' + ${category.id}}"
+                       th:text="${category.name}"
+                       th:classappend="${activeCategoryId == category.id} ? 'active-page'"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/contact}" 
+                       th:classappend="${activePage == 'contact'} ? 'active-page'">
+                        تواصل معنا <i class="fas fa-envelope"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- شريط الموبايل الأبيض -->
+    <div class="mobile-header d-flex justify-content-between align-items-center p-2 d-lg-none bg-white border-bottom">
+        <!-- زر القائمة (التلت شرط) -->
+        <button class="btn btn-light" type="button" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- اللوجو -->
+        <div class="logo mx-2">
+            <a th:href="@{/}">
+                <img th:src="@{/images/logo.jpg}" alt="الهندسية للموازين" class="img-fluid" style="max-height: 50px;">
+            </a>
+        </div>
+        
+        <!-- فراغ -->
+        <div style="width:40px"></div>
+    </div>
+
+    <!-- سايد بار للموبايل -->
+    <div class="sidebar" id="mobileSidebar">
+        <button class="close-btn" id="closeSidebarBtn">&times;</button>
+        <ul>
+            <li><a th:href="@{/}">🏠 الرئيسية</a></li>
+            <li th:each="category : ${categories}">
+                <a th:href="@{'/category/' + ${category.id}}" th:text="${category.name}"></a>
+            </li>
+            <li><a th:href="@{/contact}">تواصل معنا</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')">
+                <a th:href="@{/admin/products}">لوحة التحكم <i class="fas fa-toolbox"></i></a>
+            </li>
+        </ul>
+        <hr>
+        <div class="mb-2">تابعنا على:</div>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/1JCbeiLVg5/"><i class="fab fa-facebook"></i></a>
+            <a href="https://wa.me/201031317025"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://t.me/+201031317025"><i class="fab fa-telegram"></i></a>
+            <a href="https://www.tiktok.com/@qwertyyuiop.2020?_t=ZS-90NyxkgjxGE&_r=1"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <hr>
+        <a th:href="@{/login}" sec:authorize="!isAuthenticated()">تسجيل دخول</a>
+        <a href="#" sec:authorize="isAuthenticated()">حسابي</a>
+    </div>
+
+    <!-- شريط الموبايل السفلي -->
+    <div class="mobile-nav d-lg-none">
+        <a th:href="@{/}" class="nav-item"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+        <a th:href="@{/category/1}" class="nav-item"><i class="fas fa-store"></i><span>المتجر</span></a>
+        <a th:href="@{/cart}" class="nav-item"><i class="fas fa-shopping-cart"></i><span>السلة</span></a>
+        <a href="#" class="nav-item" id="bottomMenuBtn"><i class="fas fa-bars"></i><span>القائمة</span></a>
+    </div>
+
+    <!-- CSS -->
+    <style>
+        /* ============================= */
+        /* الشريط العلوي المتحرك        */
+        /* ============================= */
+        .top-bar {
+            background-color: #000;
+            color: white;
+            padding: 10px 0;
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .social-media {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .social-media a {
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .social-media a:hover {
+            transform: scale(1.2);
+        }
+
+        /* ✅  حاوية النص المتحرك - الإصلاح الكامل */
+		/* الحاوية */
+		.marquee-container {
+		    width: 120%;
+		    overflow: hidden;
+		    height: 40px;            /* كبرنا الارتفاع */
+		    display: flex;
+		    align-items: center;
+		}
+
+		.marquee-content {
+		    display: flex;
+			font-size: 16px;
+		    white-space: nowrap;
+		    animation: marquee 30s linear infinite;
+		}
+
+		.marquee-content span {
+		    display: flex;           /* عشان gap يشتغل */
+		    align-items: center;
+		    gap: 10px;
+		    padding-right: 10px;
+		}
+
+		.marquee-logo {
+		    height: 35px;            /* مناسب للوجو */
+		    width: auto;
+		    padding: 2px;
+		    border-radius: 4px;
+		}
+
+		@keyframes marquee {
+		    from {
+		        transform: translateX(100%);
+		    }
+		    to {
+		        transform: translateX(-30%);
+		    }
+		}
+
+		.marquee-container:hover .marquee-content {
+		    animation-play-state: paused;
+		}
+
+        .header {
+            background-color: #fff;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .navbar-main {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .navbar-main .nav-link {
+            color: #333;
+            font-weight: bold;
+            padding: 15px;
+        }
+
+        .navbar-main .nav-link:hover {
+            color: #e53935;
+        }
+
+        .navbar-main .nav-link.active,
+        .navbar-main .nav-link.active-page {
+            color: #e53935;
+            border-bottom: 3px solid #e53935;
+        }
+
+        .btn-outline-dark {
+            border-radius: 30px;
+        }
+
+        /* ========================= */
+        /* 🔍 تنسيق البحث العصري     */
+        /* ========================= */
+        .search-wrapper {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .search-input-modern {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 2px solid #ddd;
+            outline: none;
+            font-size: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .search-input-modern:focus {
+            border-color: #e53935;
+            box-shadow: 0 4px 12px rgba(229,57,53,0.2);
+        }
+
+        .search-results-modern {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0;
+            border-radius: 12px;
+            overflow: hidden;
+            max-height: 350px;
+            overflow-y: auto;
+            display: none;
+            border: 1px solid #eee;
+            animation: fadeIn 0.2s ease;
+            z-index: 5000;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .search-results-modern li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            border-bottom: 1px solid #f1f1f1;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .search-results-modern li:last-child {
+            border-bottom: none;
+        }
+
+        .search-results-modern li:hover {
+            background-color: #f9f9f9;
+        }
+
+        .search-results-modern img {
+            width: 55px;
+            height: 55px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .search-results-modern div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-results-modern .product-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .search-results-modern .product-price {
+            color: #e53935;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* سايد بار الموبايل */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 270px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+            transition: right 0.3s ease;
+            z-index: 2000;
+            padding: 25px 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar.open {
+            right: 0;
+        }
+
+        .sidebar .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            float: left;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        .sidebar ul li {
+            margin: 15px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .sidebar ul li a:hover {
+            color: #e53935;
+            padding-right: 5px;
+        }
+
+        .sidebar .social-icons {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .sidebar .social-icons a {
+            font-size: 20px;
+            color: #555;
+            transition: 0.3s;
+        }
+
+        .sidebar .social-icons a:hover {
+            color: #e53935;
+        }
+
+        /* شريط الموبايل السفلي */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+            z-index: 1500;
+        }
+
+        .mobile-nav .nav-item {
+            text-align: center;
+            font-size: 13px;
+            color: #444;
+            flex-grow: 1;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .mobile-nav .nav-item:hover {
+            color: #e53935;
+        }
+
+        .mobile-nav i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+
+        .mobile-nav .nav-item.active {
+            color: #e53935;
+            font-weight: bold;
+        }
+
+        /* موبايل */
+        @media (max-width: 767px) {
+            .marquee-content {
+                font-size: 13px;
+                animation: scroll-left 25s linear infinite;
+            }
+            .search-input-modern {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+            .search-results-modern li {
+                padding: 8px 10px;
+            }
+            .mobile-header {
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+        }
+    </style>
+
+    <!-- Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+            const bottomMenuBtn = document.getElementById("bottomMenuBtn");
+            const sidebar = document.getElementById("mobileSidebar");
+            const closeBtn = document.getElementById("closeSidebarBtn");
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener("click", () => {
+                    sidebar.classList.add("open");
+                });
+            }
+
+            if (bottomMenuBtn) {
+                bottomMenuBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    sidebar.classList.add("open");
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener("click", () => {
+                    sidebar.classList.remove("open");
+                });
+            }
+        });
+
+        // البحث
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchBox = document.getElementById("searchBox");
+            const resultsContainer = document.getElementById("searchResults");
+
+            if (!searchBox || !resultsContainer) return;
+
+            searchBox.addEventListener("input", async function() {
+                const query = this.value.trim();
+                if (query.length < 2) {
+                    resultsContainer.style.display = "none";
+                    resultsContainer.innerHTML = "";
+                    return;
+                }
+
+                try {
+                    const res = await fetch(`/api/search?keyword=${encodeURIComponent(query)}`);
+                    const data = await res.json();
+                    resultsContainer.innerHTML = "";
+
+                    if (data.length === 0) {
+                        resultsContainer.innerHTML = `<li class="text-center py-2 text-muted">لا توجد نتائج</li>`;
+                    } else {
+                        data.forEach(product => {
+                            const li = document.createElement("li");
+                            li.innerHTML = `
+                                <img src="${product.imageUrl1 || '/images/no-image.jpg'}" alt="">
+                                <div>
+                                    <span class="product-name">${product.name}</span>
+                                    <span class="product-price">${product.price} ج.م</span>
+                                </div>
+                            `;
+                            li.style.cursor = "pointer";
+
+                            li.onclick = () => {
+                                const form = document.createElement("form");
+                                form.method = "POST";
+                                form.action = `/cart/buy/${product.id}`;
+                                document.body.appendChild(form);
+                                form.submit();
+                            };
+
+                            resultsContainer.appendChild(li);
+                        });
+                    }
+                    resultsContainer.style.display = "block";
+                } catch (err) {
+                    console.error("Search error:", err);
+                }
+            });
+
+            document.addEventListener("click", e => {
+                if (!searchBox.contains(e.target) && !resultsContainer.contains(e.target)) {
+                    resultsContainer.style.display = "none";
+                }
+            });
+        });
+    </script>
+</div>

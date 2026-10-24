@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>    الدفع والتوصيل  | اونر للموازين</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+body { 
+    background-color: #f0f2f5;
+    text-align: right;
+    direction: rtl;
+    font-family: 'Cairo', 'Arial', sans-serif;
+}
+
+/* الهيدر */
+.checkout-header {
+    background: linear-gradient(135deg, #343a40, #007bff);
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.checkout-header h2 {
+    font-weight: 800;
+    font-size: 34px;
+}
+
+/* الكونتينر */
+.checkout-container {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+/* الكروت */
+.section-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* عناصر الطلب */
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.order-item:last-child { border-bottom: none; }
+.order-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* ملخص الطلب */
+.order-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 20px;
+}
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 15px;
+}
+.summary-total {
+    border-top: 2px solid #f0f0f0;
+    margin-top: 15px;
+    padding-top: 15px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #e53935;
+}
+
+/* الأزرار */
+.btn-complete-order {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    padding: 14px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 17px;
+    width: 100%;
+    border: none;
+    margin-top: 20px;
+    transition: all 0.3s;
+}
+.btn-complete-order:hover {
+    background: linear-gradient(135deg, #45a049, #3d8b40);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+/* Modal */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+.modal-content {
+    background: white;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+}
+.modal-close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+/* الفورم */
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    display: block;
+    color: #333;
+}
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 11px;
+    font-size: 14px;
+}
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+.btn-save {
+    background: #6c757d;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.btn-save:hover { background: #5a6268; }
+.btn-cancel {
+    background: white;
+    color: #666;
+    padding: 12px 30px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* الموبايل */
+@media (max-width: 767px) {
+    .checkout-header { padding: 35px 0; }
+    .checkout-header h2 { font-size: 24px; }
+    .section-card { padding: 18px; }
+    .order-summary { padding: 18px; }
+    .btn-complete-order { font-size: 15px; padding: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header (categories=${categories}, activeCategoryId=null)}"></div>
+
+<div class="checkout-header">
+    <div class="container">
+        <h2><i class="fas fa-credit-card"></i> الدفع والتوصيل</h2>
+    </div>
+</div>
+
+<div class="checkout-container">
+<form th:action="@{/cart/checkout/place-order}" method="post">
+    <div class="row">
+        <!-- القسم الأيسر -->
+        <div class="col-lg-8">
+            <!-- معلومات الاتصال -->
+            <div class="section-card">
+                <h3 class="section-title">معلومات الاتصال</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>الاسم <span style="color: red;">*</span></label>
+                            <input type="text" name="customerName" class="form-control" th:value="${fullName}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>رقم الهاتف <span style="color: red;">*</span></label>
+                            <input type="tel" name="phoneNumber" class="form-control" th:value="${phoneNumber}" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- معلومات الشحن -->
+            <div class="section-card">
+                <h3 class="section-title">معلومات الشحن</h3>
+                <div class="form-group">
+                    <label>العنوان <span style="color: red;">*</span></label>
+                    <input type="text" name="addressLine" class="form-control" placeholder="مثال: شارع 15، مبنى 20" required>
+                </div>
+                <div class="form-group">
+                    <label>شقة / وحدة</label>
+                    <input type="text" name="apartment" class="form-control" placeholder="شقة 5، الدور الثاني">
+                </div>
+                <div class="row">
+                    <div class="col-md-4"><div class="form-group"><label>المحافظة *</label><input type="text" name="governorate" class="form-control" placeholder="القاهرة" required></div></div>
+                    <div class="col-md-4"><div class="form-group"><label>المدينة *</label><input type="text" name="city" class="form-control" placeholder="مدينة نصر" required></div></div>
+                    <div class="col-md-4"><div class="form-group"><label>الحي *</label><input type="text" name="district" class="form-control" placeholder="الحي السابع" required></div></div>
+                </div>
+                <div class="form-group">
+                    <label>رقم هاتف ثاني (اختياري)</label>
+                    <input type="tel" name="phone2" class="form-control" placeholder="01234567890">
+                </div>
+            </div>
+
+            <!-- ملاحظات -->
+            <div class="section-card">
+                <h3 class="section-title">ملاحظات للبائع (اختياري)</h3>
+                <textarea name="notes" class="form-control" rows="3" placeholder="أدخل ملاحظاتك"></textarea>
+            </div>
+        </div>
+
+        <!-- ملخص الطلب -->
+        <div class="col-lg-4">
+            <div class="order-summary">
+                <h3 class="section-title">المنتجات</h3>
+                <div th:each="item : ${items}" class="order-item">
+                    <span style="background:#f0f0f0;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;" th:text="${item.quantity}">1</span>
+                    <img th:src="@{${item.imageUrl}}" alt="product">
+                    <div class="flex-grow-1">
+                        <div style="font-weight:600;font-size:14px;" th:text="${item.name}">اسم المنتج</div>
+                        <div style="color:#e53935;font-weight:bold;" th:text="${item.price} + ' ج.م'">150 ج.م</div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div class="summary-row"><span>مجموع جزئي</span><span th:text="${total} + ' ج.م'">0 ج.م</span></div>
+                    <div class="summary-row"><span>الشحن</span><span>يُحدد لاحقاً</span></div>
+                    <div class="summary-row summary-total"><span>المجموع</span><span th:text="${total} + ' ج.م'">0 ج.م</span></div>
+                </div>
+                <button type="submit" class="btn-complete-order"><i class="fas fa-check-circle"></i> تأكيد الطلب</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

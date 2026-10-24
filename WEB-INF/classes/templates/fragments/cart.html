@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="cartSidebar">
+    <!-- زر السلة في الهيدر -->
+    <div class="cart-button-container mx-2" id="openCartBtn">
+        <span class="cart-badge" th:text="${cartItemCount != null ? cartItemCount : 0}">0</span>
+        <div class="cart-icon-wrapper">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-price" th:text="${cartTotal != null ? cartTotal + ' ج.م' : '0 ج.م'}">0 ج.م</span>
+        </div>
+    </div>
+
+    <!-- سايد بار السلة -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0">🛒 سلة التسوق</h4>
+            <button class="close-btn" id="closeCart">&times;</button>
+        </div>
+        <hr class="cart-divider">
+
+        <div id="cartContent">
+            <!-- سلة فاضية -->
+            <div th:if="${cartItemCount == null or cartItemCount == 0}" class="empty-cart text-center">
+                <i class="fas fa-shopping-bag fa-3x mb-3 text-muted"></i>
+                <p class="cart-empty-title">سلة فارغة</p>
+                <p class="cart-empty-subtitle">ابدأ التسوق الآن</p>
+                <a th:href="@{/category/1}" class="btn btn-dark btn-lg rounded-pill mt-3 px-4">ابدأ التسوق</a>
+            </div>
+
+            <!-- محتويات السلة -->
+            <div th:if="${cartItemCount != null and cartItemCount > 0}">
+                <ul class="list-group">
+                    <li class="list-group-item" th:each="item : ${cartItems}">
+                        <div class="d-flex align-items-center gap-2">
+                            <img th:src="@{${item.imageUrl}}" class="cart-item-img">
+                            <div class="flex-grow-1 text-right">
+                                <p class="mb-1 product-name" th:text="${item.name}"></p>
+                                <p class="mb-0 product-price" th:text="${item.price} + ' ج.م'"></p>
+                            </div>
+                            <div class="quantity-controls">
+                                <form th:action="@{'/cart/increase/' + ${item.productId}}" method="post" class="d-inline">
+                                    <button type="submit" class="qty-btn"><i class="fas fa-plus"></i></button>
+                                </form>
+                                <span class="qty-display" th:text="${item.quantity}">1</span>
+                                <form th:action="@{'/cart/decrease/' + ${item.productId}}" method="post" class="d-inline">
+                                    <button type="submit" class="qty-btn"><i class="fas fa-minus"></i></button>
+                                </form>
+                            </div>
+                            <form th:action="@{'/cart/remove/' + ${item.productId}}" method="post" class="d-inline">
+                                <button type="submit" class="btn-delete"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="mt-4">
+                    <div class="cart-total-box d-flex justify-content-between align-items-center">
+                        <span>الإجمالي:</span>
+                        <strong th:text="${cartTotal} + ' ج.م'">0 ج.م</strong>
+                    </div>
+
+                    <a th:href="@{/cart}" class="btn btn-view-cart">
+                        <i class="fas fa-shopping-cart"></i> عرض السلة
+                    </a>
+
+                    <a th:href="@{/cart/checkout}" class="btn btn-checkout">
+                        <i class="fas fa-credit-card"></i> الدفع والتوصيل
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* زر السلة */
+        .cart-button-container { position: relative; cursor: pointer; display: inline-block; }
+        .cart-badge {
+            position: absolute; top: -8px; right: -8px;
+            background: #e53935; color: white;
+            border-radius: 50%; width: 22px; height: 22px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: bold;
+            border: 2px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        .cart-icon-wrapper {
+            border: 2px solid #ddd; border-radius: 30px;
+            padding: 8px 16px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            background: white; transition: all 0.3s;
+            min-width: 70px;
+        }
+        .cart-icon-wrapper:hover { border-color: #e53935; background: #f8f9fa; }
+        .cart-icon-wrapper i { font-size: 20px; margin-bottom: 3px; color: #333; }
+        .cart-price { font-size: 12px; color: #e53935; font-weight: bold; }
+
+        /* سايد بار */
+        .cart-sidebar {
+            position: fixed; top: 0; left: -100%;
+            width: 360px; height: 100%;
+            background: #fff; box-shadow: 2px 0 15px rgba(0,0,0,0.3);
+            transition: left 0.3s ease; z-index: 1050; padding: 25px;
+            overflow-y: auto; border-radius: 0 12px 12px 0;
+        }
+        .cart-sidebar.open { left: 0; }
+        .cart-header h4 { font-weight: bold; }
+        .cart-header .close-btn {
+            background: none; border: none; font-size: 28px;
+            font-weight: bold; color: #333; cursor: pointer;
+        }
+        .cart-header .close-btn:hover { color: #e53935; }
+        .cart-divider { border-top: 2px solid #f0f0f0; }
+
+        /* المنتجات */
+        .list-group-item { border: none; padding: 12px 8px; border-bottom: 1px solid #f1f1f1; }
+        .cart-item-img { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; }
+        .product-name { font-size: 14px; font-weight: 600; }
+        .product-price { color: #e53935; font-weight: bold; font-size: 13px; }
+        .quantity-controls { display: flex; align-items: center; gap: 5px; }
+        .qty-btn {
+            background: #eee; border: none; width: 26px; height: 26px;
+            border-radius: 50%; cursor: pointer; transition: 0.2s;
+        }
+        .qty-btn:hover { background: #e53935; color: #fff; }
+        .qty-display { min-width: 20px; text-align: center; font-weight: bold; }
+
+        .btn-delete {
+            background: none; border: none; color: #e53935;
+            font-size: 16px; cursor: pointer;
+        }
+        .btn-delete:hover { color: #b71c1c; }
+
+        /* أزرار */
+        .btn-view-cart, .btn-checkout {
+            display: block; width: 100%; padding: 12px;
+            border-radius: 30px; font-weight: bold; text-align: center;
+            margin-top: 12px; text-decoration: none; transition: 0.3s;
+        }
+        .btn-view-cart {
+            background: linear-gradient(135deg, #2196F3, #1976D2); color: white;
+        }
+        .btn-view-cart:hover { background: linear-gradient(135deg, #1976D2, #0D47A1); }
+        .btn-checkout {
+            background: linear-gradient(135deg, #4CAF50, #388E3C); color: white;
+        }
+        .btn-checkout:hover { background: linear-gradient(135deg, #388E3C, #2E7D32); }
+
+        /* سلة فاضية */
+        .empty-cart { margin-top: 50px; }
+        .cart-empty-title { font-size: 20px; font-weight: bold; }
+        .cart-empty-subtitle { font-size: 14px; color: #777; }
+
+        /* موبايل */
+        @media (max-width: 768px) {
+            .cart-sidebar { width: 300px; }
+            .cart-item-img { width: 45px; height: 45px; }
+            .product-name { font-size: 13px; }
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            const openCartBtn = document.getElementById("openCartBtn");
+            const closeCart = document.getElementById("closeCart");
+            const cartSidebar = document.getElementById("cartSidebar");
+
+            if(openCartBtn){
+                openCartBtn.addEventListener("click", () => cartSidebar.classList.add("open"));
+            }
+            if(closeCart){
+                closeCart.addEventListener("click", () => cartSidebar.classList.remove("open"));
+            }
+        });
+    </script>
+</div>
+
+</body>
+</html>

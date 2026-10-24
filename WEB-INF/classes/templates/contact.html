@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>تواصل معنا | اونر للموازين</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- التصميم العام (يشمل اللابتوب) --- */
+        body { 
+            font-family: 'Cairo', 'Arial', sans-serif; 
+            background-color: #f0f2f5; 
+        }
+        
+        /* رأس الصفحة */
+        .contact-header { 
+            background: linear-gradient(135deg, #343a40, #007bff); 
+            color: white; 
+            padding: 60px 0; 
+            text-align: center; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .contact-header h1 { font-weight: 800; font-size: 40px; }
+        .contact-header p { font-weight: 400; font-size: 18px; }
+        
+        /* صندوق التواصل المباشر (الواتساب) */
+        .contact-form { 
+            background: white; 
+            border-radius: 15px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
+            padding: 40px; 
+            margin-top: -30px; 
+            position: relative; 
+            z-index: 2; 
+            text-align: right; 
+            border-top: 5px solid #25D366; 
+        }
+
+        /* معلومات التواصل الجانبية */
+        .contact-info1 { 
+            background: white; 
+            border-radius: 15px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08); 
+            padding: 30px; 
+            text-align: right; 
+            border: 1px solid #e9ecef;
+        }
+        .contact-info1 h3 { color: #343a40; font-weight: 700; border-bottom: 2px solid #f8f9fa; padding-bottom: 10px; margin-bottom: 20px;}
+        .info-item { 
+            padding: 15px; 
+            border-right: 4px solid #007bff; 
+        }
+        .info-item h5 { font-size: 16px; }
+        .info-item p { font-size: 14px; }
+        
+        /* زر الواتساب */
+        .btn-send { 
+            padding: 18px 40px; 
+            font-weight: 700; 
+            font-size: 18px; 
+            background: linear-gradient(45deg, #25D366, #128C7E); 
+            border-radius: 30px; 
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+        }
+
+        /* أيقونات السوشيال ميديا على اللابتوب */
+        .social-links { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
+        .social-link { 
+            display: flex; align-items: center; justify-content: center; 
+            width: 45px; height: 45px; 
+            color: white; 
+            border-radius: 50%; 
+            transition: all 0.3s ease; 
+            font-size: 20px;
+        }
+        .social-link:hover { transform: scale(1.1); color: white; text-decoration: none; }
+        /* ألوان الروابط الخاصة */
+        .social-links a:nth-child(1) { background: #000; } /* TikTok */
+        .social-links a:nth-child(2) { background: #0088cc; } /* Telegram */
+        .social-links a:nth-child(3) { background: #25D366; } /* WhatsApp */
+        .social-links a:nth-child(4) { background: #1877f2; } /* Facebook */
+
+
+        /* --- استعلامات الموبايل (Media Queries) --- */
+
+        /* للهواتف ذات العرض الأقصى 767 بكسل (الأجهزة الصغيرة والعمودية) */
+        @media (max-width: 767px) {
+            
+            .contact-form {
+                padding: 25px; 
+                margin-top: 15px; 
+            }
+            
+            .contact-header {
+                padding: 40px 0;
+            }
+            .contact-header h1 { 
+                font-size: 32px; 
+            }
+
+            .btn-send {
+                padding: 15px 20px; 
+                font-size: 16px; 
+                border-radius: 20px; 
+            }
+            
+            /* ====== التعديل لتحسين روابط التواصل الاجتماعي على الموبايل ====== */
+            .social-links {
+                gap: 10px; /* تقليل المسافة بين الأيقونات قليلاً لعدم الضيق */
+                margin-top: 20px;
+            }
+            .social-link {
+                /* زيادة حجم الأيقونة لتصبح أسهل في الضغط */
+                width: 55px; 
+                height: 55px; 
+                font-size: 24px; /* زيادة حجم الأيقونة الداخلية */
+            }
+            /* ============================================================= */
+
+            .contact-info1 {
+                padding: 20px;
+            }
+            .info-item { 
+                padding: 10px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header (categories=${categories}, activeCategoryId=${activeCategoryId})}"></div>
+	    
+    <div class="contact-header">
+        <div class="container">
+            <h1 class="page-title">تواصل معنا</h1>
+            <p class="page-subtitle">نحن هنا للإجابة على جميع استفساراتك حول الموازين</p>
+        </div>
+    </div>
+    
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="contact-info1">
+                    <h3 class="mb-4">معلومات التواصل الرئيسية</h3>
+                    
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div><h5>البريد الإلكتروني</h5><p class="mb-0">elhandsyh1@gmail.com</p></div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-phone"></i></div>
+                        <div><h5>رقم الهاتف للمبيعات</h5><p class="mb-0">01031317052</p><p class="mb-0">01031317025</p></div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div><h5>التغطية الجغرافية</h5><p class="mb-0">جمهورية مصر العربية - توصيل لجميع المحافظات</p></div>
+                    </div>
+					
+                    <div class="social-links">
+                        <a href="https://www.tiktok.com/@qwertyyuiop.2020?_t=ZS-90NyxkgjxGE&_r=1" class="social-link"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://t.me/+201031317025" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wa.me/201031317025" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/share/1JCbeiLVg5/" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-8">
+                <div class="contact-form">
+                    <h3 class="mb-4" style="color: #343a40;">إرسال استفسار فوري عبر واتساب</h3>
+                    <p class="mb-5 text-muted">اضغط على الزر الأخضر أدناه لبدء محادثة واتساب مباشرة. سيتم إرسال رسالة جاهزة لطلب معلومات عن منتجاتنا.</p>
+                    
+                    <a href="javascript:void(0);" onclick="sendInstantWhatsApp()" class="btn btn-send">
+                        <i class="fab fa-whatsapp me-2"></i> **اضغط هنا لبدء محادثة واتساب الآن**
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div th:replace="~{fragments/footer :: footer}"></div>
+ 
+    <script>
+    /**
+     * الدالة الجديدة والمحسنة لضمان تحميل النص في التطبيق
+     */
+    function sendInstantWhatsApp() {
+        // نص الرسالة الذي تريده أن يظهر جاهزاً للإرسال
+        let staticMessage = "مرحباً بكم، أود الاستفسار عن منتجات وخدمات الشركة الهندسية للموازين. أرجو تزويدي بمزيد من التفاصيل.";
+        
+        // تحويل النص ليتناسب مع رابط الـ URL
+        let finalMessage = encodeURIComponent(staticMessage);
+        
+        // الرقم المُستهدف (مصر)
+        let phoneNumber = "201031317025"; 
+
+        // استخدام صيغة api.whatsapp.com لزيادة التوافق وتحميل النص في التطبيق
+        let url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${finalMessage}`;
+        
+        window.open(url, "_blank");
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>من نحن - اونر للموازين</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', 'Arial', sans-serif; background-color: #f0f2f5; }
+
+        /* الهيدر */
+        .page-header { 
+            background: linear-gradient(135deg, #343a40, rgb(0, 128, 255)); 
+            color: white; padding: 50px 0; 
+            text-align: center; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .page-header h1 { font-weight: 800; font-size: 36px; }
+
+        /* الصندوق */
+        .content-box {
+            background: #fff; border-radius: 15px; padding: 30px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08); margin-top: -20px;
+        }
+        .content-box h3 { font-weight: 700; margin-top: 25px; font-size: 22px; color: #333; }
+        .content-box p, .content-box li { font-size: 16px; color: #555; line-height: 1.8; }
+        .content-box ul { padding-right: 20px; }
+
+        /* أيقونات */
+        .content-box h3 i { margin-right: 8px; color: #e53935; }
+
+        /* الموبايل */
+        @media(max-width: 767px){
+            .page-header h1 { font-size: 26px; }
+            .content-box { padding: 20px; }
+            .content-box h3 { font-size: 20px; }
+            .content-box p, .content-box li { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر العام -->
+    <div th:replace="~{fragments/header :: header (categories=${categories}, activeCategoryId=${activeCategoryId})}"></div>
+
+    <!-- هيدر الصفحة -->
+    <div class="page-header">
+        <div class="container">
+            <h1>من نحن 🌟</h1>
+        </div>
+    </div>
+
+    <!-- المحتوى -->
+    <div class="container my-5">
+        <div class="content-box text-right">
+
+            <p>مرحبًا بكم في فريق <strong>اونر للموازين</strong>، وجهتك المثالية لشراء الموازين الإلكترونية عالية الجودة والأجهزة الدقيقة التي تلبي احتياجاتك اليومية والتجارية.</p>
+            
+            <h3>نبذة عن الشركة ⚖️</h3>
+            <p>تأسست شركة <strong>اونر للموازين</strong> بهدف تقديم حلول مبتكرة وموثوقة في مجال قياس الأوزان. نحن نتخصص في توفير مجموعة واسعة من الموازين الإلكترونية التي تناسب جميع الاستخدامات، سواء كنت تبحث عن موازين منزلية أو أجهزة متقدمة للشركات والمصانع.</p>
+            
+            <h3>رؤيتنا 🔭</h3>
+            <p>نسعى لأن نكون الخيار الأول والأفضل لعملائنا في مجال الموازين الإلكترونية، من خلال تقديم منتجات ذات جودة عالية وأسعار تنافسية مع خدمة عملاء مميزة.</p>
+            
+            <h3>رسالتنا 🤝</h3>
+            <ul>
+                <li>تقديم منتجات دقيقة وموثوقة تلبي احتياجات العملاء وتتجاوز توقعاتهم.</li>
+                <li>توفير دعم فني وخدمة ما بعد البيع لضمان رضا العميل التام.</li>
+                <li>تعزيز الثقة بيننا وبين عملائنا من خلال الشفافية والجودة.</li>
+            </ul>
+            
+            <h3>منتجاتنا 🛒</h3>
+            <ul>
+                <li>موازين المطبخ المنزلية.</li>
+                <li>موازين تجارية للسوبر ماركت والمطاعم.</li>
+                <li>موازين صناعية لمصانع ومزارع.</li>
+            </ul>
+            <p>جميع منتجاتنا تخضع لمعايير صارمة لضمان أعلى مستويات الدقة والأداء.</p>
+            
+            <h3> لماذا تختارنا؟ 💡</h3>
+            <ul>
+                <li>جودة مضمونة: نستخدم تقنيات حديثة لضمان دقة وموثوقية المنتجات.</li>
+                <li>خدمة عملاء متميزة: فريقنا دائمًا على استعداد لمساعدتك والإجابة على استفساراتك.</li>
+                <li>ضمان شامل: نقدم ضمانًا على جميع منتجاتنا لتوفير تجربة شراء آمنة.</li>
+                <li>شحن سريع: نحرص على توصيل منتجاتنا إلى جميع المحافظات في أسرع وقت ممكن.</li>
+            </ul>
+            
+            <h3> تواصل معنا 📞</h3>
+            <p>
+                رقم الهاتف: 01031317025 <br>
+                رقم الهاتف: 01031317052 <br>
+                البريد الإلكتروني: elhandsyh1@gmail.com
+            </p>
+            
+            <p class="mt-4">مع فريق <strong>اونر للموازين</strong>، يمكنك أن تثق بأنك تحصل على أفضل المنتجات والخدمات بأعلى معايير الجودة. شكراً لثقتكم بنا! 💙</p>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

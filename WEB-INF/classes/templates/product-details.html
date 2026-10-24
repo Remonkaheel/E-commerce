@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${product.name} + ' | اونر للموازين'">تفاصيل المنتج</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" th:content="${product.description}">
+    <meta name="keywords" th:content="${product.name} + ', موازين, اونر للموازين'">
+    
+    <!-- Bootstrap & Font Awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Cairo Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Cairo', 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Product Images */
+        .product-images {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .carousel-item img {
+            border-radius: 15px;
+            max-height: 450px;
+            object-fit: contain;
+            width: 100%;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            padding: 20px;
+        }
+
+        /* Product Info */
+        .product-info {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+        .price-section {
+            background: linear-gradient(135deg, #fff5f5, #ffe5e5);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .current-price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e53935;
+            display: block;
+        }
+
+        .old-price {
+            font-size: 18px;
+            color: #999;
+            text-decoration: line-through;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .discount-badge {
+            background: #e53935;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .stock-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .out-of-stock-badge {
+            background: #e53935;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .description-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .description-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            background: linear-gradient(135deg, #ff6347, #e5533d);
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(229,57,53,0.3);
+        }
+
+        .btn-add-cart:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229,57,53,0.4);
+        }
+
+        .btn-add-cart:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-buy-now {
+            flex: 1;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76,175,80,0.3);
+        }
+
+        .btn-buy-now:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76,175,80,0.4);
+        }
+
+        .btn-buy-now:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Related Products */
+        .related-section {
+            margin-top: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .section-header h3 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #222;
+            margin: 0;
+        }
+
+        .section-divider {
+            border: none;
+            height: 3px;
+            background: linear-gradient(to left, #e53935, #ff7043);
+            width: 180px;
+            margin-right: 15px;
+            border-radius: 50px;
+        }
+
+        .related-card {
+            border: none;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .related-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .related-card .card-body {
+            padding: 15px;
+            text-align: right;
+        }
+
+        .related-card h6 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .related-card .text-danger {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .product-title {
+                font-size: 22px;
+            }
+
+            .current-price {
+                font-size: 26px;
+            }
+
+            .old-price {
+                font-size: 16px;
+            }
+
+            .carousel-item img {
+                max-height: 300px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-add-cart,
+            .btn-buy-now {
+                font-size: 14px;
+                padding: 12px 20px;
+            }
+
+            .related-card img {
+                height: 150px;
+            }
+
+            .section-header h3 {
+                font-size: 20px;
+            }
+        }
+		/* ===== كارت المنتجات المشابهة بالضبط نفس كروت الصفحة الرئيسية ===== */
+
+		/* الكارد */
+		.product-card {
+		    border: none;
+		    border-radius: 20px;
+		    background: #fff;
+		    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+		    transition: all 0.3s ease;
+		    overflow: hidden;
+		    display: flex;
+		    flex-direction: column;
+		}
+
+		.product-card:hover {
+		    transform: translateY(-5px);
+		    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+		}
+
+		/* الصورة */
+		.product-img-container {
+		    position: relative;
+		    width: 100%;
+		    height: 250px;
+		    overflow: hidden;
+		    border-radius: 15px 15px 0 0;
+		}
+
+		.product-img {
+		    width: 100%;
+		    height: 100%;
+		    object-fit: cover;
+		}
+
+		/* البادجات */
+		.badge-size {
+		    position: absolute;
+		    top: 15px;
+		    left: 15px;
+		    background: #333;
+		    color: white;
+		    padding: 5px 10px;
+		    border-radius: 5px;
+		    font-size: 10px;
+		}
+		.badge-out {
+		    background: #e53935 !important;
+		}
+
+		/* بيانات المنتج */
+		.product-content {
+		    padding: 15px 20px 10px 20px;
+		    text-align: right;
+		}
+		.product-title {
+		    font-size: 16px;
+		    font-weight: bold;
+		    margin-bottom: 8px;
+		    color: #333;
+		}
+		.product-features {
+		    font-size: 14px;
+		    color: #666;
+		    margin-bottom: 8px;
+		}
+
+		.product-price {
+		    margin-top: 8px;
+		    display: flex;
+		    align-items: center;
+		    gap: 8px;
+		}
+		.current-price {
+		    color: #e53935;
+		    font-weight: bold;
+		    font-size: 18px;
+		}
+		.old-price {
+		    color: #999;
+		    text-decoration: line-through;
+		    font-size: 12px;
+		}
+
+		/* الموبايل */
+		@media (max-width: 768px) {
+		    .product-img-container {
+		        height: 180px;
+		    }
+		    .product-title {
+		        font-size: 14px;
+		    }
+		    .product-features {
+		        font-size: 12px;
+		    }
+		    .current-price {
+		        font-size: 15px;
+		    }
+		}
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ✅ الهيدر -->
+    <div th:replace="~{fragments/header :: header (categories=${categories}, activeCategoryId=${activeCategoryId})}"></div>
+
+    <div class="container my-5">
+
+        <div class="row">
+
+            <!-- ✅ صور المنتج -->
+            <div class="col-md-6 mb-4">
+                <div class="product-images">
+                    <div id="productCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+                        <div class="carousel-inner">
+
+                            <div class="carousel-item active">
+                                <img th:src="@{${product.imageUrl1}}" class="d-block w-100" alt="صورة المنتج 1">
+                            </div>
+
+                            <div class="carousel-item" th:if="${product.imageUrl2 != null}">
+                                <img th:src="@{${product.imageUrl2}}" class="d-block w-100" alt="صورة المنتج 2">
+                            </div>
+
+                            <div class="carousel-item" th:if="${product.imageUrl3 != null}">
+                                <img th:src="@{${product.imageUrl3}}" class="d-block w-100" alt="صورة المنتج 3">
+                            </div>
+
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="carousel-control-prev" href="#productCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">السابق</span>
+                        </a>
+                        <a class="carousel-control-next" href="#productCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">التالي</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ معلومات المنتج -->
+            <div class="col-md-6 text-right">
+                <div class="product-info">
+                    
+                    <!-- العنوان -->
+                    <h1 class="product-title" th:text="${product.name}">اسم المنتج</h1>
+
+                    <!-- حالة التوفر -->
+                    <div class="mb-3">
+                        <span class="stock-badge" th:if="${product.stock > 0}">
+                            <i class="fas fa-check-circle"></i> متوفر في المخزون
+                        </span>
+                        <span class="out-of-stock-badge" th:if="${product.stock == 0}">
+                            <i class="fas fa-times-circle"></i> نفذت الكمية
+                        </span>
+                    </div>
+
+                    <!-- السعر -->
+                    <div class="price-section">
+                        <span class="current-price" th:text="${product.price} + ' ج.م'">0 ج.م</span>
+                        
+                        <div th:if="${product.originalPrice != null}">
+                            <span class="old-price" th:text="${product.originalPrice} + ' ج.م'">0 ج.م</span>
+                            <span class="discount-badge" 
+                                  th:text="'وفر ' + ${product.originalPrice - product.price} + ' ج.م'">
+                                وفر
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- الوصف المختصر -->
+                    <div class="description-section">
+                        <h5 class="section-title">
+                            <i class="fas fa-info-circle"></i> نبذة عن المنتج
+                        </h5>
+                        <p class="description-text" th:text="${product.description}">وصف المنتج</p>
+                    </div>
+
+                    <!-- الوصف التفصيلي -->
+                    <div class="description-section" th:if="${product.detailedDescription != null}" >
+                        <h5 class="section-title">
+                            <i class="fas fa-list-ul"></i> الوصف التفصيلي
+                        </h5>
+                        <div class="description-text" th:utext="${product.detailedDescription}"></div>
+                    </div>
+
+                    <!-- أزرار الإجراءات -->
+                    <div class="action-buttons">
+                        <!-- زر اشتري الآن -->
+                        <form th:action="@{/cart/buy/{id}(id=${product.id})}" method="post" style="flex: 1;">
+                            <button type="submit" class="btn-buy-now" th:disabled="${product.stock == 0}">
+                                <i class="fas fa-bolt"></i> اشتري الآن
+                            </button>
+                        </form>
+
+                        <!-- زر أضف للسلة -->
+                        <form th:action="@{/cart/add/{id}(id=${product.id})}" method="post" style="flex: 1;">
+                            <button type="submit" class="btn-add-cart" th:disabled="${product.stock == 0}">
+                                <i class="fas fa-shopping-cart"></i> أضف للسلة
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+		<!-- 🔥 منتجات مشابهة -->
+		<div class="container my-5 text-center">
+		    <h3 class="mb-4" style="font-weight:bold;">منتجات مشابهة</h3>
+
+		    <div class="row">
+		        <div class="col-6 col-md-6 col-lg-3 mb-4" th:each="related : ${relatedProducts}">
+		            <div class="product-card">
+		                <a th:href="@{'/product/' + ${related.id}}" style="text-decoration:none; color:inherit;">
+
+		                <div class="product-img-container"
+		                     th:data-image1="${related.imageUrl1}"
+		                     th:data-image2="${related.imageUrl2}"
+		                     th:data-image3="${related.imageUrl3}">
+		                     
+		                    <div class="badge-size" th:if="${related.stock > 0}">متوفر</div>
+		                    <div class="badge-size badge-out" th:if="${related.stock == 0}">نفذ</div>
+
+		                    <img th:src="@{${related.imageUrl1}}" class="product-img" alt="صورة المنتج">
+		                </div>
+
+		                <div class="product-content">
+		                    <div class="product-title" th:text="${related.name}">اسم المنتج</div>
+		                    <div class="product-features" th:text="${related.description}">وصف المنتج</div>
+
+		                    <div class="product-price">
+		                        <span class="old-price" th:if="${related.originalPrice != null}" 
+		                              th:text="${related.originalPrice}+' ج.م'"></span>
+
+		                        <span class="current-price" th:text="${related.price}+' ج.م'"></span>
+		                    </div>
+		                </div>
+
+		                </a>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+
+    <!-- ✅ الفوتر -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

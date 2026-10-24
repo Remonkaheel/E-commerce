@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>سياسة الخصوصية والأمان | اونر للموازين</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', 'Arial', sans-serif; background-color: #f0f2f5; }
+
+        /* الهيدر */
+        .page-header { 
+            background: linear-gradient(135deg, #343a40, #28a745); 
+            color: white; padding: 50px 0; 
+            text-align: center; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .page-header h1 { font-weight: 800; font-size: 32px; }
+
+        /* الصندوق */
+        .content-box {
+            background: #fff; border-radius: 15px; padding: 30px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08); margin-top: -20px;
+        }
+        .content-box h3 { font-weight: 700; margin-top: 25px; font-size: 20px; color: #333; }
+        .content-box p, .content-box li { font-size: 16px; color: #555; line-height: 1.8; }
+        .content-box ul { padding-right: 20px; }
+
+        /* أيقونات */
+        .content-box h3 i { margin-right: 8px; color: #28a745; }
+
+        /* الموبايل */
+        @media(max-width: 767px){
+            .page-header h1 { font-size: 24px; }
+            .content-box { padding: 20px; }
+            .content-box h3 { font-size: 18px; }
+            .content-box p, .content-box li { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر العام -->
+    <div th:replace="~{fragments/header :: header (categories=${categories}, activeCategoryId=${activeCategoryId})}"></div>
+
+    <!-- هيدر الصفحة -->
+    <div class="page-header">
+        <div class="container">
+            <h1>سياسة الخصوصية والأمان 🔒</h1>
+        </div>
+    </div>
+
+    <!-- المحتوى -->
+    <div class="container my-5">
+        <div class="content-box text-right">
+
+            <p>في فريق <strong>اونر للموازين</strong>، نحن نقدر خصوصيتك وأمانك بشكل كبير. نحن ملتزمون بحماية بياناتك الشخصية والحفاظ على سرية المعلومات التي تشاركها معنا. فيما يلي تفاصيل سياسة الخصوصية والأمان الخاصة بموقعنا:</p>
+            
+            <h3> 1️⃣ جمع البيانات 📊</h3>
+            <p>نحن نجمع فقط البيانات الضرورية لتقديم أفضل تجربة لك كعميل. قد تشمل هذه البيانات:</p>
+            <ul>
+                <li>معلومات شخصية: مثل الاسم، رقم الهاتف، البريد الإلكتروني، وعنوان الشحن.</li>
+                <li>بيانات الدفع: عند إتمام عملية شراء، يتم جمع بيانات الدفع من خلال بوابات دفع آمنة ومعتمدة.</li>
+                <li>صور المنتجات: إذا كنت ترسل صورًا للمنتجات لأغراض الإرجاع أو الاستبدال، فإننا نحتفظ بهذه الصور مؤقتًا فقط لمعالجة طلبك.</li>
+            </ul>
+            <p><strong>ملاحظة:</strong> لا يتم مشاركة أي بيانات شخصية مع أطراف ثالثة دون إذن صريح منك.</p>
+
+            <h3> 2️⃣ استخدام البيانات 🛠️</h3>
+            <ul>
+                <li>معالجة الطلبات وإرسال المنتجات إلى عنوانك.</li>
+                <li>التواصل معك بخصوص طلباتك أو استفساراتك.</li>
+                <li>تحسين خدماتنا وتوفير تجربة أفضل لك كعميل.</li>
+            </ul>
+
+            <h3> 3️⃣ حماية البيانات 🔐</h3>
+            <ul>
+                <li>تشفير البيانات باستخدام تقنيات SSL الحديثة.</li>
+                <li>تخزين آمن بكلمات مرور وأنظمة محمية.</li>
+                <li>الامتثال للقوانين المحلية والدولية مثل GDPR.</li>
+            </ul>
+
+            <h3> 4️⃣ حقوقك كمستخدم 👤</h3>
+            <ul>
+                <li>طلب الوصول إلى بياناتك.</li>
+                <li>تصحيح البيانات غير الدقيقة.</li>
+                <li>حذف بياناتك الشخصية.</li>
+                <li>إلغاء الاشتراك في الرسائل الترويجية.</li>
+            </ul>
+
+            <h3> 5️⃣ الصور والملكية الفكرية 📸</h3>
+            <ul>
+                <li>الصور ملك لـ <strong>الهندسية للموازين</strong> وتخضع لحقوق الطبع والنشر.</li>
+                <li>يُمنع إعادة نشر الصور بدون إذن كتابي.</li>
+                <li>الصور المرسلة من العملاء تستخدم فقط لمعالجة الطلبات.</li>
+            </ul>
+
+            <h3>6️⃣ التحديثات على سياسة الخصوصية 🔄</h3>
+            <p>قد نقوم بتحديث هذه السياسة من وقت لآخر لتعكس أي تغييرات. سيتم إخطارك بأي تحديثات عبر الموقع أو البريد الإلكتروني.</p>
+
+            <h3> 7️⃣ للتواصل معنا 📞</h3>
+            <p>
+                رقم الهاتف: 01031317025 <br>
+                رقم الهاتف: 01031317052 <br>
+                البريد الإلكتروني: elhandsyh1@gmail.com
+            </p>
+
+            <p class="mt-4">نحن نحرص دائمًا على حماية بياناتك وضمان أعلى مستويات الأمان والخصوصية. شكراً لثقتك بـ <strong>اونر للموازين</strong> 💙</p>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

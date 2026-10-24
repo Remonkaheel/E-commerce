@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>إدارة الطلبات</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+body { 
+    background-color: #f8f9fa;
+    text-align: right;
+    direction: rtl;
+}
+.sidebar { 
+    background-color: #343a40; 
+    color: white; 
+    min-height: 100vh; 
+    padding-top: 20px;
+}
+.sidebar .nav-link { color: #fff; }
+.sidebar .nav-link:hover { background-color: #495057; }
+.content { padding: 20px; }
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.status-PENDING { background: #FFF3E0; color: #F57C00; }
+.status-CONFIRMED { background: #E3F2FD; color: #1976D2; }
+.status-PROCESSING { background: #F3E5F5; color: #7B1FA2; }
+.status-SHIPPED { background: #E8F5E9; color: #388E3C; }
+.status-DELIVERED { background: #C8E6C9; color: #2E7D32; }
+.status-CANCELLED { background: #FFEBEE; color: #C62828; }
+
+.order-row {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+<body>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar text-right">
+        <a class="navbar-brand text-white mx-3" th:href="@{/admin/products}">لوحة التحكم</a>
+        <div class="list-group list-group-flush mt-4">
+            <a th:href="@{/}" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-home"></i> الصفحة الرئيسية
+            </a>
+            <a th:href="@{/admin/products}" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-boxes"></i> إدارة المنتجات
+            </a>
+            <a th:href="@{/admin/offers}" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-gift"></i> إدارة العروض
+            </a>
+			<a th:href="@{/admin/advertisements}" class="list-group-item list-group-item-action bg-dark text-white">
+			    <i class="fas fa-ad"></i> إدارة الإعلانات
+			</a>
+            <a th:href="@{/admin/orders}" class="list-group-item list-group-item-action bg-dark text-white active">
+                <i class="fas fa-shopping-bag"></i> إدارة الطلبات
+            </a>
+            <a th:href="@{/admin/users}" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-users"></i> إدارة المستخدمين
+            </a>
+            <a th:href="@{/logout}" class="list-group-item list-group-item-action bg-dark text-white">
+                <i class="fas fa-sign-out-alt"></i> تسجيل خروج
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content flex-grow-1">
+        <h2 class="mb-4"><i class="fas fa-shopping-bag"></i> إدارة الطلبات</h2>
+        
+        <div class="mb-3">
+            <span class="badge badge-primary">إجمالي الطلبات: <span th:text="${#lists.size(orders)}">0</span></span>
+        </div>
+        
+        <!-- جدول الطلبات -->
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>رقم الطلب</th>
+                        <th>العميل</th>
+                        <th>الهاتف</th>
+                        <th>المنتجات</th>
+                        <th>الإجمالي</th>
+                        <th>التاريخ</th>
+                        <th>الحالة</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="order : ${orders}">
+                        <td><strong th:text="'#' + ${order.id}"></strong></td>
+                        <td th:text="${order.customerName}"></td>
+                        <td th:text="${order.phoneNumber}"></td>
+                        <td>
+                            <small th:text="${#lists.size(order.orderItems)} + ' منتج'"></small>
+                        </td>
+                        <td><strong style="color: #e53935;" th:text="${order.totalAmount} + ' ج.م'"></strong></td>
+                        <td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}"></td>
+                        <td>
+                            <span class="status-badge" th:classappend="'status-' + ${order.status}">
+                                <span th:text="${order.status == 'PENDING' ? 'قيد الانتظار' : 
+                                               order.status == 'CONFIRMED' ? 'مؤكد' : 
+                                               order.status == 'PROCESSING' ? 'جاري التحضير' : 
+                                               order.status == 'SHIPPED' ? 'تم الشحن' : 
+                                               order.status == 'DELIVERED' ? 'تم التوصيل' : 'ملغي'}"></span>
+                            </span>
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a th:href="@{'/admin/orders/details/' + ${order.id}}" 
+                                   class="btn btn-sm btn-info" title="عرض التفاصيل">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-success dropdown-toggle" 
+                                        data-toggle="dropdown" title="تغيير الحالة">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" th:href="@{'/admin/orders/status/' + ${order.id} + '/CONFIRMED'}">
+                                        ✓ مؤكد
+                                    </a>
+                                    <a class="dropdown-item" th:href="@{'/admin/orders/status/' + ${order.id} + '/PROCESSING'}">
+                                        🔄 جاري التحضير
+                                    </a>
+                                    <a class="dropdown-item" th:href="@{'/admin/orders/status/' + ${order.id} + '/SHIPPED'}">
+                                        📦 تم الشحن
+                                    </a>
+                                    <a class="dropdown-item" th:href="@{'/admin/orders/status/' + ${order.id} + '/DELIVERED'}">
+                                        ✅ تم التوصيل
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger" th:href="@{'/admin/orders/status/' + ${order.id} + '/CANCELLED'}">
+                                        ❌ إلغاء
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

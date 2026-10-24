@@ -1,0 +1,57 @@
+<!-- fragments/footer.html -->
+<div th:fragment="footer">
+<footer class="simple-footer py-4">
+    <div class="container text-center">
+		
+		<div class="footer-logo mb-3">
+		    <a th:href="@{/}">
+		        <img th:src="@{/images/logo.jpg}" alt="الهندسية للموازين" style="max-height: 60px;">
+		    </a>
+		</div>
+
+        <!-- الروابط -->
+		<div class="footer-links d-flex flex-wrap justify-content-center mb-4">
+		    <a th:href="@{/}" class="mx-2">الرئيسية</a>
+		    <a th:href="@{/category/1}" class="mx-2">تسوّق</a> <!-- يوديه لأي صنف (مثلاً ID=1) -->
+		    <a th:href="@{/contact}" class="mx-2">تواصل معنا</a>
+		    <a th:href="@{/about}" class="mx-2">من نحن ⚖️</a>
+		    <a th:href="@{/privacy}" class="mx-2">سياسة الخصوصية والأمان 🔒</a>
+		    <a th:href="@{/return}" class="mx-2">سياسة الاستبدال والاسترجاع 🔄</a>
+		    <a th:href="@{/shipping}" class="mx-2">سياسة الشحن والتوصيل 🚚</a>
+		</div>
+
+        <!-- السوشيال -->
+        <div class="social-icons">
+            <a href="https://www.facebook.com/share/1JCbeiLVg5/" class="social-circle"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/201031317025" class="social-circle"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://t.me/+201031317025" class="social-circle"><i class="fab fa-telegram"></i></a>
+			<a href="https://www.tiktok.com/@qwertyyuiop.2020?_t=ZS-90NyxkgjxGE&_r=1" class="social-circle"><i class="fab fa-tiktok"></i></a>
+
+        </div>
+    </div>
+</footer>
+<style>
+footer.simple-footer a { color: #000 !important; font-weight: 600; text-decoration: none !important; }
+.logo img {
+    max-height: 50px;
+    width: auto;
+}
+.footer-logo img {
+    max-height: 60px;
+    width: auto;
+}
+
+.social-circle {
+  display: inline-block; width: 45px; height: 45px; background: #fff;
+  border-radius: 50%; text-align: center; line-height: 45px;
+  border: 2px solid #fff; margin: 0 8px;
+}
+.social-circle i { font-size: 18px; color: #000; }
+
+/* موبايل */
+@media (max-width: 768px) {
+  .footer-links { flex-direction: column; }
+  .footer-links a { margin: 5px 0; }
+}
+</style>
+</div>

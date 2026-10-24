@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | اونر للموازين</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body { font-family: 'Cairo', 'Arial', sans-serif; background-color: #f0f2f5; }
+        .card {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            background: #fff;
+        }
+        .form-control:focus {
+            border-color: #e53935;
+            box-shadow: 0 0 0 0.2rem rgba(229, 57, 53, 0.25);
+        }
+        .btn-dark {
+            background-color: #000;
+            border-color: #000;
+        }
+        .btn-dark:hover {
+            background-color: #333;
+            border-color: #333;
+        }
+        a { color: #e53935; }
+        .input-group-text { background-color: #e9ecef; }
+        label {
+            text-align: right !important;
+            display: block;
+            direction: rtl;
+        }
+
+        /* ✅ تعديل المقاسات للموبايل */
+        @media (max-width: 576px) {
+            .card {
+                max-width: 95%;
+                margin: 20px auto;
+                padding: 15px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            .form-control {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .btn-dark {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+	<div th:replace="~{fragments/header :: header (categories=${categories}, activeCategoryId=${activeCategoryId})}"></div>
+    <div class="container">
+        <div class="card mt-5">
+            <h2 class="text-center mb-4">تسجيل الدخول</h2>
+            <p class="text-center text-muted">مرحبًا بعودتك! من فضلك قم بتسجيل الدخول للمتابعة.</p>
+
+            <!-- رسائل الخطأ -->
+            <div th:if="${param.error}" class="alert alert-danger text-center" role="alert">
+                البريد الإلكتروني أو كلمة المرور غير صحيحة.
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success text-center" role="alert">
+                تم تسجيل خروجك بنجاح.
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username" class="text-right d-block">البريد الإلكتروني</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="ادخل بريدك الإلكتروني" required/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="text-right d-block">كلمة المرور</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        </div>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="********" required/>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-dark btn-block mt-4">تسجيل الدخول</button>
+            </form>
+            
+            <div class="text-center mt-3">
+                <p>ليس لديك حساب؟ <a th:href="@{/register}">إنشاء حساب جديد</a></p>
+            </div>
+        </div>
+    </div>
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

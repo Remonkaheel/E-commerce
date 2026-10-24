@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تأكيد الطلب | اونر للموازين</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+body { 
+    background-color: #f0f2f5;
+    text-align: right;
+    direction: rtl;
+    font-family: 'Cairo','Arial',sans-serif;
+}
+
+/* هيدر */
+.confirm-header {
+    background: linear-gradient(135deg, #343a40, #e53935);
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.confirm-header h2 { font-weight: 800; font-size: 30px; }
+
+/* الكونتينر */
+.confirmation-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+/* الكارت */
+.success-card {
+    background: white;
+    border-radius: 15px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+/* الأيقونة */
+.success-icon {
+    width: 85px;
+    height: 85px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    animation: scaleIn 0.5s ease;
+}
+.success-icon i { font-size: 40px; color: white; }
+@keyframes scaleIn { from{transform:scale(0);} to{transform:scale(1);} }
+
+/* تفاصيل */
+.order-number {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 15px 0;
+}
+.status-badge {
+    display:inline-block;
+    padding:7px 20px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+.status-pending { background:#FFF3E0; color:#F57C00; }
+
+/* البوكس */
+.order-details {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: right;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.detail-row {
+    display:flex; justify-content:space-between;
+    padding:8px 0; border-bottom:1px solid #eee;
+    font-size:15px;
+}
+.detail-row:last-child { border-bottom:none; }
+
+/* المنتجات */
+.order-item {
+    display:flex; align-items:center;
+    gap:15px; padding:12px;
+    background:white; border-radius:10px;
+    margin-bottom:10px; box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+.order-item img { width:60px; height:60px; border-radius:8px; object-fit:cover; }
+
+/* الأزرار */
+.action-buttons { display:flex; gap:15px; justify-content:center; margin-top:25px; flex-wrap:wrap; }
+.btn-primary-custom {
+    background:linear-gradient(135deg, #e53935, #c62828);
+    color:white; padding:12px 28px;
+    border-radius:30px; border:none;
+    font-weight:bold; transition:all 0.3s;
+}
+.btn-primary-custom:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(229,57,53,0.3); }
+.btn-secondary-custom {
+    background:white; color:#333;
+    border:2px solid #333;
+    padding:12px 28px; border-radius:30px;
+    font-weight:bold; transition:all 0.3s;
+}
+.btn-secondary-custom:hover { background:#333; color:white; }
+
+/* الموبايل */
+@media (max-width:767px){
+    .confirm-header h2 { font-size:22px; }
+    .success-card { padding:20px; }
+    .order-number { font-size:20px; }
+    .detail-row { font-size:14px; }
+    .btn-primary-custom, .btn-secondary-custom { font-size:14px; padding:10px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header (categories=${categories}, activeCategoryId=null)}"></div>
+
+<div class="confirm-header">
+    <div class="container">
+        <h2><i class="fas fa-receipt"></i> تأكيد الطلب</h2>
+    </div>
+</div>
+
+<div class="confirmation-container">
+    <div class="success-card">
+        <div class="success-icon"><i class="fas fa-check"></i></div>
+        <h3>تم استلام طلبك بنجاح!</h3>
+        <p class="text-muted">شكراً لك، سنتواصل معك قريباً</p>
+
+        <div class="order-number">
+            رقم الطلب: <span th:text="${order.id}">#12345</span>
+        </div>
+
+        <span class="status-badge status-pending">قيد الانتظار</span>
+
+        <!-- تفاصيل الطلب -->
+        <div class="order-details">
+            <h5 class="mb-3"><i class="fas fa-box"></i> تفاصيل الطلب</h5>
+            <div class="detail-row"><strong>التاريخ:</strong><span th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy - HH:mm')}">05/10/2025</span></div>
+            <div class="detail-row"><strong>الاسم:</strong><span th:text="${order.customerName}">محمد أحمد</span></div>
+            <div class="detail-row"><strong>رقم الهاتف:</strong><span th:text="${order.phoneNumber}">01234567890</span></div>
+            <div class="detail-row"><strong>العنوان:</strong>
+                <span><span th:text="${order.addressLine}"></span>, <span th:text="${order.apartment}"></span><br>
+                      <span th:text="${order.district}"></span>, <span th:text="${order.city}"></span>, <span th:text="${order.governorate}"></span></span>
+            </div>
+            <div class="detail-row" th:if="${order.phone2 != null && !order.phone2.isEmpty()}"><strong>هاتف إضافي:</strong><span th:text="${order.phone2}"></span></div>
+            <div class="detail-row" th:if="${order.notes != null && !order.notes.isEmpty()}"><strong>ملاحظات:</strong><span th:text="${order.notes}"></span></div>
+        </div>
+
+        <!-- المنتجات -->
+        <div class="order-details mt-3">
+            <h5 class="mb-3"><i class="fas fa-shopping-bag"></i> المنتجات</h5>
+            <div th:each="item : ${order.orderItems}" class="order-item">
+                <span class="product-qty" th:text="${item.quantity}">1</span>
+                <img th:src="@{${item.imageUrl}}" alt="product">
+                <div class="flex-grow-1 text-right">
+                    <div class="product-name" th:text="${item.productName}">اسم المنتج</div>
+                    <div style="color:#e53935;font-weight:bold;" th:text="${item.price} + ' ج.م'">150 ج.م</div>
+                </div>
+                <div class="product-subtotal" th:text="${item.subtotal} + ' ج.م'">300 ج.م</div>
+            </div>
+
+            <div class="detail-row mt-2 order-total">
+                <strong>الإجمالي:</strong>
+                <span th:text="${order.totalAmount} + ' ج.م'">5,100 ج.م</span>
+            </div>
+        </div>
+
+        <!-- الأزرار -->
+        <div class="action-buttons">
+			<a href="javascript:void(0);"
+			   class="btn-primary-custom"
+			   id="whatsappBtn"
+			   th:data-id="${order.id}"
+			   th:data-name="${order.customerName}"
+			   th:data-phone="${order.phoneNumber}"
+			   th:data-address="${order.addressLine}"
+			   th:data-apartment="${order.apartment}"
+			   th:data-district="${order.district}"
+			   th:data-city="${order.city}"
+			   th:data-governorate="${order.governorate}"
+			   th:data-phone2="${order.phone2}"
+			   th:data-notes="${order.notes}">
+			   <i class="fab fa-whatsapp"></i> تأكيد الاستلام
+			</a>
+
+  
+            <a th:href="@{/orders}" class="btn-secondary-custom"><i class="fas fa-list"></i> طلباتي</a>
+            <a th:href="@{/}" class="btn-primary-custom"><i class="fas fa-home"></i> الرئيسية</a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script>
+document.getElementById("whatsappBtn").addEventListener("click", function() {
+    let orderId = this.dataset.id;
+    let name = this.dataset.name;
+    let phone = this.dataset.phone;
+    let address = this.dataset.address;
+    let apartment = this.dataset.apartment;
+    let district = this.dataset.district;
+    let city = this.dataset.city;
+    let governorate = this.dataset.governorate;
+    let phone2 = this.dataset.phone2;
+    let notes = this.dataset.notes;
+
+    let message = `🔹 تأكيد استلام الطلب رقم: ${orderId}\n`;
+    message += `👤 الاسم: ${name}\n`;
+    message += `📞 الهاتف: ${phone}\n`;
+    message += `🏠 العنوان: ${address}`;
+    if(apartment && apartment !== 'null') message += `، ${apartment}`;
+    message += ` - ${district} - ${city} - ${governorate}\n`;
+    if(phone2 && phone2 !== 'null') message += `📞 هاتف إضافي: ${phone2}\n`;
+    if(notes && notes !== 'null') message += `📝 ملاحظات: ${notes}\n`;
+    message += `--------------------------------\n🛍️ المنتجات:\n`;
+
+    // المنتجات
+    document.querySelectorAll(".order-item").forEach((item, index) => {
+        let product = item.querySelector(".product-name").innerText;
+        let qty = item.querySelector(".product-qty").innerText;
+        let subtotal = item.querySelector(".product-subtotal").innerText;
+        message += `${index+1}- ${product} × ${qty} = ${subtotal}\n`;
+    });
+
+    let total = document.querySelector(".order-total").innerText;
+    message += `--------------------------------\n 💰${total}`;
+
+    let url = "https://wa.me/201031317025?text=" + encodeURIComponent(message);
+    window.open(url, "_blank");
+});
+</script>
+
+</body>
+</html>
