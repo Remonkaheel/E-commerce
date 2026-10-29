@@ -1,0 +1,19 @@
+target/
+uploads/
+.mvn/
+!.mvn/wrapper/maven-wrapper.properties
+*.class
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS
+Thumbs.db
+.DS_Store
