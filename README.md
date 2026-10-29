@@ -1,4 +1,4 @@
-# E-Commerce Website — اونر للموازين
+# E-Commerce Website 
 
 A full-stack e-commerce web application built with **Java Spring Boot**, **Spring MVC**, **Thymeleaf** and **MySQL**.
 The storefront and the admin dashboard are fully **Arabic (RTL)** and are designed for a store that sells scales (موازين).
